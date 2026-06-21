@@ -19,7 +19,8 @@
 
 	// Point uv to use the mounted cache
 	"remoteEnv": {
-		"UV_CACHE_DIR": "/home/vscode/.cache/uv"
+		"UV_CACHE_DIR": "/home/vscode/.cache/uv",
+		"UV_LINK_MODE": "copy"
 	},
 
 	// VS Code customizations
@@ -27,11 +28,14 @@
 		"vscode": {
 			"extensions": [
 				"ms-python.python",
-				"ms-python.debugpy"
+				"ms-python.debugpy",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-renderers"
 			],
 			"settings": {
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
 				"debugpy.debugJustMyCode": false,
+				"jupyter.debugJustMyCode": false,
 				"launch": {
 					"configurations": [
 						{
@@ -64,10 +68,18 @@
 	},
 
 	// Fix ownership of the UV cache volume (Docker creates it as root)
-	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.cache/uv",
+	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.cache/uv && sudo uv pip install --system ipykernel",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [
+		8888
+	],
+	"portsAttributes": {
+		"8888": {
+			"label": "Jupyter",
+			"onAutoForward": "notify"
+		}
+	},
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
