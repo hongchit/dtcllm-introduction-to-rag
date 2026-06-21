@@ -1,0 +1,74 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "DTCLLM-Intro-to-RAG",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/python:3-3.14-trixie",
+	"features": {
+		"ghcr.io/devcontainers-extra/features/uv:1": {}
+	},
+
+	// Remove the default non-root user and replace with vscode
+	"remoteUser": "vscode",
+	"containerUser": "vscode",
+
+	// Mount the UV cache from the named Docker volume
+	"mounts": [
+		"source=devcontainer-uv-cache,target=/home/vscode/.cache/uv,type=volume"
+	],
+
+	// Point uv to use the mounted cache
+	"remoteEnv": {
+		"UV_CACHE_DIR": "/home/vscode/.cache/uv"
+	},
+
+	// VS Code customizations
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.debugpy"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"debugpy.debugJustMyCode": false,
+				"launch": {
+					"configurations": [
+						{
+							"name": "Python: Current File",
+							"type": "debugpy",
+							"request": "launch",
+							"program": "${file}",
+							"console": "integratedTerminal",
+							"justMyCode": false
+						},
+						{
+							"name": "Python: Module",
+							"type": "debugpy",
+							"request": "launch",
+							"module": "${input:moduleName}",
+							"console": "integratedTerminal",
+							"justMyCode": false
+						}
+					],
+					"inputs": [
+						{
+							"id": "moduleName",
+							"type": "promptString",
+							"description": "Python module to run"
+						}
+					]
+				}
+			}
+		}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "pip3 install --user -r requirements.txt",
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
