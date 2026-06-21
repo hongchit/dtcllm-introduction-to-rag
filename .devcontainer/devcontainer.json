@@ -63,11 +63,11 @@
 		}
 	},
 
+	// Fix ownership of the UV cache volume (Docker creates it as root)
+	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.cache/uv",
+
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "pip3 install --user -r requirements.txt",
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
