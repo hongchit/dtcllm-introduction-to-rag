@@ -33,7 +33,7 @@
 				"ms-toolsai.jupyter-renderers"
 			],
 			"settings": {
-				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
 				"debugpy.debugJustMyCode": false,
 				"jupyter.debugJustMyCode": false,
 				"launch": {
@@ -68,7 +68,8 @@
 	},
 
 	// Fix ownership of the UV cache volume (Docker creates it as root)
-	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.cache/uv && sudo uv pip install --system ipykernel",
+	"postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.cache/uv && uv sync --frozen && .venv/bin/python -m ipykernel install --user --name dtcllm-introduction-to-rag --display-name \"Python (.venv)\"",
+	"waitFor": "postCreateCommand",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [

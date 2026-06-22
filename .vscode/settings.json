@@ -1,0 +1,5 @@
+{
+	"python.defaultInterpreterPath": "/workspaces/dtcllm-introduction-to-rag/.venv/bin/python",
+	"python.terminal.activateEnvironment": true,
+	"jupyter.notebookFileRoot": "${workspaceFolder}"
+}
