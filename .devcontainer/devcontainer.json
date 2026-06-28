@@ -6,8 +6,7 @@
 	"service": "app",
 	"workspaceFolder": "/workspaces/dtcllm-introduction-to-rag",
 	"runServices": [
-		"app",
-		"pgvector"
+		"app"
 	],
 	"shutdownAction": "stopCompose",
 
